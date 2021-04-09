@@ -1,0 +1,18 @@
+FROM debian:buster
+
+ENV BIND_VERSION 1:9.11.5.P4+dfsg-5.1+deb10u3
+
+RUN echo "deb http://deb.debian.org/debian-debug/ buster-debug main" >> /etc/apt/sources.list
+
+RUN apt-get update && \
+    apt-get install -y \
+        rsyslog procps gdb \
+        bind9=$BIND_VERSION bind9-dbgsym=$BIND_VERSION \
+        --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY *.db *.sh /
+
+COPY named.conf.options /etc/bind
+
+CMD ["/entrypoint.sh"]

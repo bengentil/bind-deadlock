@@ -1,0 +1,13 @@
+$TTL 86400
+$ORIGIN {{DOMAIN}}.
+
+@ IN SOA ns1.mydomain.local. noc.mydomain.local. (
+	20210318
+	10800
+	3600
+	605800
+	86400
+);
+
+	IN NS ns11.mydomain.local.
+	IN NS ns12.mydomain.local.

@@ -1,0 +1,19 @@
+FROM debian:buster
+
+ENV BIND_VERSION 1:9.16.13-1~bpo10+1
+
+RUN echo "deb http://deb.debian.org/debian-debug/ buster-backports-debug main" >> /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" >> /etc/apt/sources.list
+
+RUN apt-get update && \
+    apt-get install -y \
+        rsyslog procps gdb \
+        bind9=$BIND_VERSION bind9-dbgsym=$BIND_VERSION bind9-libs-dbgsym=$BIND_VERSION \
+        --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY *.db *.sh /
+
+COPY named.conf.options /etc/bind
+
+CMD ["/entrypoint.sh"]

@@ -1,0 +1,15 @@
+
+statistics-channels {
+    inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+};
+
+options {
+        directory "/var/cache/bind";
+        key-directory  "/var/cache/bind/keys";
+        dnssec-enable yes;
+        dnssec-validation yes;
+        dnssec-lookaside auto;
+        sig-validity-interval 21 16;
+
+        allow-new-zones yes;
+};
